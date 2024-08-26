@@ -24,7 +24,6 @@ attn_implementation = "sdpa"
 bs = 16
 
 print("torch:", torch.__version__)
-print("sphn:", sphn.__version__)
 print("torchao:", torchao.__version__)
 print("hqq:", hqq.__version__)
 print("transformers:", transformers.__version__)
