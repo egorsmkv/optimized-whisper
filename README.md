@@ -32,6 +32,12 @@ yt-dlp --extract-audio --audio-format wav -o "audio.wav" https://www.youtube.com
 ffmpeg -y -i audio.wav -f segment -segment_time 30 -ac 1 -ar 16000 audio-chunk-%03d.wav
 ```
 
+```
+wget -O run_batch.py "https://raw.githubusercontent.com/egorsmkv/optimized-whisper/main/run_batch.py?token=GHSAT0AAAAAABZRL3ITAFJVN767FLZ4J7YCZWMUABQ"
+
+python run_batch.py
+```
+
 ### dev
 
 ```
