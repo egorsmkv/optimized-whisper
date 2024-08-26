@@ -1,6 +1,8 @@
 ```
 apt update
-apt install -y ffmpeg build-essential
+
+apt install -y rustc cargo 
+apt install -y ffmpeg build-essential cmake
 ```
 
 ```
@@ -11,13 +13,21 @@ uv venv --python 3.10
 source .venv/bin/activate
 
 uv pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu118
-uv pip install torchaudio
+uv pip install librosa
 uv pip install -U transformers yt-dlp setuptools
 uv pip install git+https://github.com/mobiusml/hqq.git
 
 git clone https://github.com/pytorch/ao
 cd ao
 python setup.py install
+
+uv pip install maturin
+
+git clone https://github.com/LaurentMazare/sphn sphn-code
+cd sphn-code
+maturin build --release
+
+uv pip install --force-reinstall /root/x/sphn-code/target/wheels/sphn-0.1.2-cp310-cp310-manylinux_2_34_x86_64.whl
 ```
 
 ```

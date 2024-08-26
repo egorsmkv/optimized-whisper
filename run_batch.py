@@ -1,7 +1,7 @@
 import time
 
 import torch
-import librosa
+import sphn
 import torchao
 import hqq
 
@@ -24,7 +24,7 @@ attn_implementation = "sdpa"
 bs = 16
 
 print("torch:", torch.__version__)
-print("librosa:", librosa.__version__)
+print("sphn:", sphn.__version__)
 print("torchao:", torchao.__version__)
 print("hqq:", hqq.__version__)
 print("transformers:", transformers.__version__)
@@ -81,7 +81,7 @@ def make_batches(iterable, n=1):
 
 
 def load_features(filename):
-    data, _ = librosa.load(filename, sr=16_000)
+    data, _ = sphn.read(filename)
 
     input_features = processor(
         torch.tensor(data), sampling_rate=16_000, return_tensors="pt"
@@ -93,7 +93,7 @@ def load_features(filename):
 
 
 def load_features_warmup(filename):
-    data, _ = librosa.load(filename, sr=16_000, duration=1.0)  # load only 1 second
+    data, _ = sphn.duration_sec(filename, sample_rate=16_000, duration_sec=1.0)  # load only 1 second
 
     input_features = processor(
         torch.tensor(data), sampling_rate=16_000, return_tensors="pt"
