@@ -27,6 +27,10 @@ uv pip install --force-reinstall /root/sphn-code/target/wheels/sphn-0.1.2-cp312-
 ```
 
 ```
+git clone https://github.com/egorsmkv/optimized-whisper
+
+cd optimized-whisper
+
 yt-dlp --extract-audio --audio-format wav -o "audio.wav" https://www.youtube.com/watch?v=u4dc1axRwE4
 
 ffmpeg -y -i audio.wav -f segment -segment_time 30 -ac 1 -ar 16000 audio-chunk-%03d.wav
