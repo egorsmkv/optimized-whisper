@@ -22,7 +22,8 @@ device = "cuda:0"
 model_id = "openai/whisper-large-v3"
 compute_dtype = torch.bfloat16
 attn_implementation = "sdpa"
-bs = 16
+language = 'ukrainian'
+bs = 24
 
 print("torch:", torch.__version__)
 print("torchao:", torchao.__version__)
@@ -123,7 +124,7 @@ t0 = time.time()
 
 for it in range(3):
     print("Iter:", it)
-    result = model.generate(concatenated_warmup, language="english")
+    result = model.generate(concatenated_warmup, language=language)
     print(result)
     print("---")
 
@@ -142,7 +143,7 @@ for batch in make_batches(input_features_batch, bs):
     concatenated_batch = torch.cat([b['features'] for b in batch], dim=0)
     durations = sum([b['duration'] for b in batch])
     
-    generated_ids = model.generate(concatenated_batch, language="english")
+    generated_ids = model.generate(concatenated_batch, language=language)
 
     rec_elapsed = time.time() - t0
 
