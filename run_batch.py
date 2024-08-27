@@ -137,7 +137,10 @@ for batch in make_batches(input_features_batch, bs):
         
     t0 = time.time()
 
-    concatenated_batch = torch.cat(batch['feature'], dim=0)
+    # Gather data
+    concatenated_batch = torch.cat([b['feature'] for b in batch], dim=0)
+    durations = sum([b['duration'] for b in batch])
+    
     generated_ids = model.generate(concatenated_batch, language="english")
 
     rec_elapsed = time.time() - t0
@@ -159,7 +162,7 @@ for batch in make_batches(input_features_batch, bs):
 
     total_elapsed = rec_elapsed + decoding_elapsed
     
-    print("Duration:", sum(batch['duration']))
-    print("RTF:", round(total_elapsed / sum(batch['duration']), 4))
+    print("Duration:", durations)
+    print("RTF:", round(total_elapsed / durations, 4))
 
     print("***")
