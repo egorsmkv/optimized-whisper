@@ -62,6 +62,8 @@ model.model.decoder.forward = torch.compile(
     model.model.decoder.forward, mode="reduce-overhead", fullgraph=True
 )
 
+model.model.encoder.to(device)
+
 files = glob("audio-chunk-*.wav")
 print("Audios files:", len(files))
 
@@ -76,7 +78,7 @@ def load_features(filename):
     data, _ = sphn.read(filename)
 
     input_features = processor(
-        torch.tensor(data), sampling_rate=16_000, return_tensors="pt"
+        torch.tensor(data[0]), sampling_rate=16_000, return_tensors="pt"
     ).input_features
 
     input_features = input_features.to(compute_dtype).to(device)
@@ -88,7 +90,7 @@ def load_features_warmup(filename):
     data, _ = sphn.read(filename, sample_rate=16_000, duration_sec=1.0)  # load only 1 second
 
     input_features = processor(
-        torch.tensor(data), sampling_rate=16_000, return_tensors="pt"
+        torch.tensor(data[0]), sampling_rate=16_000, return_tensors="pt"
     ).input_features
 
     input_features = input_features.to(compute_dtype).to(device)
