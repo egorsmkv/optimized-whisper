@@ -7,7 +7,7 @@ apt install -y rustc cargo ffmpeg build-essential cmake
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-uv venv --python 3.10
+uv venv --python 3.12
 
 source .venv/bin/activate
 
