@@ -44,7 +44,7 @@ quant_config = BaseQuantizeConfig(
     quant_scale=False,
     quant_zero=False,
     axis=1,
-    offload_meta=True,
+    offload_meta=False,
 )
 HQQLinear.set_backend(HQQBackend.PYTORCH)
 
@@ -106,7 +106,11 @@ print("W Files=", len(warmup_input_features_batch))
 
 input_features_batch = []
 for f in files:
-    input_features_batch.append(load_features(f))
+    duration_file = sphn.durations(f)
+    input_features_batch.append({
+        'features': load_features(f),
+        'duration': duration_file,
+    })
 
 print("Files=", len(input_features_batch))
 
@@ -133,20 +137,29 @@ for batch in make_batches(input_features_batch, bs):
         
     t0 = time.time()
 
-    concatenated_batch = torch.cat(batch, dim=0)
+    concatenated_batch = torch.cat(batch['feature'], dim=0)
     generated_ids = model.generate(concatenated_batch, language="english")
 
+    rec_elapsed = time.time() - t0
+
     print("---")
-    print("Recognition elapsed:", time.time() - t0)
+    print("Recognition elapsed:", rec_elapsed)
 
     t0 = time.time()
 
     transcriptions = processor.batch_decode(generated_ids, skip_special_tokens=True)
 
+    decoding_elapsed = time.time() - t0
+    
     print("---")
-    print("Decoding elapsed:", time.time() - t0)
+    print("Decoding elapsed:", decoding_elapsed)
 
     for transcription in transcriptions:
         print(transcription)
+
+    total_elapsed = rec_elapsed + decoding_elapsed
+    
+    print("Duration:", sum(batch['duration']))
+    print("RTF:", round(total_elapsed / sum(batch['duration']), 4))
 
     print("***")
