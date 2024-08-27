@@ -1,6 +1,12 @@
+# Optimized Whisper
+
+## Required software
+
 ```
 apt update && apt install -y rustc cargo ffmpeg build-essential cmake clang nvtop
 ```
+
+## Installation
 
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -34,11 +40,48 @@ yt-dlp --extract-audio --audio-format wav -o "audio.wav" https://www.youtube.com
 ffmpeg -y -i audio.wav -f segment -segment_time 30 -ac 1 -ar 16000 audio-chunk-%03d.wav
 ```
 
+## Run
+
 ```
 python run_batch.py
 ```
 
-### dev
+## Run with Flash-Attention 2
+
+```
+export FLASH_ATTENTION_SKIP_CUDA_BUILD=true
+
+uv pip install flash-attn --no-build-isolation
+```
+
+```
+python run_batch_fa2.py
+```
+
+Some benchmarks:
+
+```
+Quant:
+
+  All Duration: 1174.69875
+  All RTF: 0.0111
+  All elapsed: 12.983880758285522
+
+FA2 + Quant:
+
+  All Duration: 1174.69875
+  All RTF: 0.0209
+  All elapsed: 24.537547826766968
+
+FA2:
+
+  All Duration: 1174.69875
+  All RTF: 0.0262
+  All elapsed: 30.79047179222107
+
+```
+
+### Development
 
 ```
 uv pip install ruff
@@ -46,3 +89,4 @@ uv pip install ruff
 ruff check
 ruff format
 ```
+

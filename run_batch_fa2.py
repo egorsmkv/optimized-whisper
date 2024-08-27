@@ -25,7 +25,7 @@ torch._logging.set_logs(graph_breaks=True, recompiles=True)
 device = "cuda:0"
 model_id = "openai/whisper-large-v3"
 compute_dtype = torch.bfloat16
-attn_implementation = "sdpa"
+attn_implementation = "flash_attention_2"
 language = "english"
 bs = 8
 
@@ -40,6 +40,7 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
     use_safetensors=True,
     attn_implementation=attn_implementation,
     torch_dtype=compute_dtype,
+    device_map=device,
 )
 
 processor = AutoProcessor.from_pretrained(model_id)
@@ -64,11 +65,6 @@ AutoHQQHFModel.quantize_model(
 prepare_for_inference(model.model.decoder, backend="torchao_int4")
 
 model.generation_config.cache_implementation = "static"
-model.model.decoder.forward = torch.compile(
-    model.model.decoder.forward, mode="reduce-overhead", fullgraph=True
-)
-
-model.model.encoder.to(device)
 
 files = glob("audio-chunk-*.wav")
 print("Audios files:", len(files))
@@ -92,26 +88,6 @@ def load_features(filename):
     return input_features
 
 
-def load_features_warmup(filename):
-    data, _ = sphn.read(
-        filename, sample_rate=16_000, duration_sec=1.0
-    )  # load only 1 second
-
-    input_features = processor(
-        torch.tensor(data[0]), sampling_rate=16_000, return_tensors="pt"
-    ).input_features
-
-    input_features = input_features.to(compute_dtype).to(device)
-
-    return input_features
-
-
-warmup_input_features_batch = []
-for f in files:
-    warmup_input_features_batch.append(load_features_warmup(f))
-
-print("W Files=", len(warmup_input_features_batch))
-
 input_features_batch = []
 for f in files:
     durations = sphn.durations([f])
@@ -124,20 +100,6 @@ for f in files:
 
 print("Files=", len(input_features_batch))
 
-
-concatenated_warmup = torch.cat(warmup_input_features_batch[:bs], dim=0)
-
-
-t0 = time.time()
-
-for it in range(3):
-    print("Iter:", it)
-    result = model.generate(concatenated_warmup, language=language)
-    print(result)
-    print("---")
-
-print("---")
-print("Warmup elapsed:", time.time() - t0)
 
 t0_start = time.time()
 all_total_elapsed = 0
