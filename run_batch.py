@@ -85,7 +85,7 @@ def load_features(filename):
 
 
 def load_features_warmup(filename):
-    data, _ = sphn.duration_sec(filename, sample_rate=16_000, duration_sec=1.0)  # load only 1 second
+    data, _ = sphn.read(filename, sample_rate=16_000, duration_sec=1.0)  # load only 1 second
 
     input_features = processor(
         torch.tensor(data), sampling_rate=16_000, return_tensors="pt"
