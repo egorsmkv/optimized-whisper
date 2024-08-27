@@ -49,19 +49,12 @@ quant_config = BaseQuantizeConfig(
 HQQLinear.set_backend(HQQBackend.PYTORCH)
 
 AutoHQQHFModel.quantize_model(
-    model.model.encoder,
-    quant_config=quant_config,
-    compute_dtype=compute_dtype,
-    device=device,
-)
-AutoHQQHFModel.quantize_model(
     model.model.decoder,
     quant_config=quant_config,
     compute_dtype=compute_dtype,
     device=device,
 )
 
-prepare_for_inference(model.model.encoder)
 prepare_for_inference(model.model.decoder, backend="torchao_int4")
 
 model.generation_config.cache_implementation = "static"
