@@ -132,7 +132,7 @@ print("Warmup elapsed:", time.time() - t0)
 
 
 for batch in make_batches(input_features_batch, bs):
-    # In our test script, we skip other batches becase it leads to recompiles
+    # In our test script, we skip other batches becase it leads to torch recompiles
     if len(batch) != bs:
         continue
         
