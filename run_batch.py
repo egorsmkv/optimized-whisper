@@ -127,6 +127,10 @@ print("Warmup elapsed:", time.time() - t0)
 
 
 for batch in make_batches(input_features_batch, bs):
+    # In our test script, we skip other batches becase it leads to recompiles
+    if len(batch) != bs:
+        continue
+        
     t0 = time.time()
 
     concatenated_batch = torch.cat(batch, dim=0)
