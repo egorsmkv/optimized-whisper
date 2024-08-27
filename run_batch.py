@@ -131,6 +131,9 @@ for it in range(3):
 print("---")
 print("Warmup elapsed:", time.time() - t0)
 
+t0_start = time.time()
+all_total_elapsed = 0
+durations_total = 0
 
 for batch in make_batches(input_features_batch, bs):
     # In our test script, we skip other batches becase it leads to torch recompiles
@@ -167,4 +170,14 @@ for batch in make_batches(input_features_batch, bs):
     print("Duration:", durations)
     print("RTF:", round(total_elapsed / durations, 4))
 
+    all_total_elapsed += total_elapsed
+    durations_total += durations
+
     print("***")
+
+print('----')
+
+print("All Duration:", durations_total)
+print("All RTF:", round(all_total_elapsed / durations_total, 4))
+
+print('All elapsed:', time.time() - t0_start)
