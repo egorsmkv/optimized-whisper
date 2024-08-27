@@ -108,7 +108,7 @@ input_features_batch = []
 for f in files:
     duration_file = sphn.durations(f)
     input_features_batch.append({
-        'features': load_features(f),
+        'features': load_features([f]),
         'duration': duration_file,
     })
 
