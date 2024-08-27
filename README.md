@@ -23,7 +23,7 @@ git clone https://github.com/LaurentMazare/sphn sphn-code
 cd sphn-code
 maturin build --release
 
-uv pip install --force-reinstall /root/sphn-code/target/wheels/sphn-0.1.2-cp310-cp310-manylinux_2_34_x86_64.whl
+uv pip install --force-reinstall /root/sphn-code/target/wheels/sphn-0.1.2-cp312-cp312-manylinux_2_34_x86_64.whl
 ```
 
 ```
