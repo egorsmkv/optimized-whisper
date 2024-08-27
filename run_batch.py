@@ -106,10 +106,10 @@ print("W Files=", len(warmup_input_features_batch))
 
 input_features_batch = []
 for f in files:
-    duration_file = sphn.durations(f)
+    durations = sphn.durations(f)
     input_features_batch.append({
         'features': load_features([f]),
-        'duration': duration_file,
+        'duration': durations[0],
     })
 
 print("Files=", len(input_features_batch))
