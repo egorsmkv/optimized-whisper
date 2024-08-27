@@ -139,7 +139,7 @@ for batch in make_batches(input_features_batch, bs):
     t0 = time.time()
 
     # Gather data
-    concatenated_batch = torch.cat([b['feature'] for b in batch], dim=0)
+    concatenated_batch = torch.cat([b['features'] for b in batch], dim=0)
     durations = sum([b['duration'] for b in batch])
     
     generated_ids = model.generate(concatenated_batch, language="english")
