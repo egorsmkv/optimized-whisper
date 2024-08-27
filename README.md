@@ -63,22 +63,21 @@ Some benchmarks:
 ```
 Quant:
 
-  All Duration: 1174.69875
+  All Duration: 1174.6987
   All RTF: 0.0111
-  All elapsed: 12.983880758285522
+  All elapsed: 12.9838
 
 FA2 + Quant:
 
-  All Duration: 1174.69875
+  All Duration: 1174.6987
   All RTF: 0.0209
-  All elapsed: 24.537547826766968
+  All elapsed: 24.5375
 
 FA2:
 
-  All Duration: 1174.69875
+  All Duration: 1174.6987
   All RTF: 0.0262
-  All elapsed: 30.79047179222107
-
+  All elapsed: 30.7904
 ```
 
 ### Development
