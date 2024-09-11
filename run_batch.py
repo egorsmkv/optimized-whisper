@@ -13,7 +13,7 @@ import transformers
 
 from glob import glob
 
-from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor
+from transformers import WhisperForConditionalGeneration, WhisperTokenizerFast, WhisperProcessor
 
 from hqq.models.hf.base import AutoHQQHFModel
 from hqq.utils.patching import prepare_for_inference
@@ -34,7 +34,7 @@ print("torchao:", torchao.__version__)
 print("hqq:", hqq.__version__)
 print("transformers:", transformers.__version__)
 
-model = AutoModelForSpeechSeq2Seq.from_pretrained(
+model = WhisperForConditionalGeneration.from_pretrained(
     model_id,
     low_cpu_mem_usage=True,
     use_safetensors=True,
@@ -42,7 +42,9 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
     torch_dtype=compute_dtype,
 )
 
-processor = AutoProcessor.from_pretrained(model_id)
+tokenizer = WhisperTokenizerFast.from_pretrained(model_id, language=language)
+
+processor = WhisperProcessor.from_pretrained(model_id, tokenizer=tokenizer)
 
 quant_config = BaseQuantizeConfig(
     nbits=4,
