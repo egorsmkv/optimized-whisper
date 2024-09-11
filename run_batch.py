@@ -13,7 +13,11 @@ import transformers
 
 from glob import glob
 
-from transformers import WhisperForConditionalGeneration, WhisperTokenizerFast, WhisperProcessor
+from transformers import (
+    WhisperForConditionalGeneration,
+    WhisperTokenizerFast,
+    WhisperProcessor,
+)
 
 from hqq.models.hf.base import AutoHQQHFModel
 from hqq.utils.patching import prepare_for_inference
