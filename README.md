@@ -3,7 +3,7 @@
 ## Required software
 
 ```
-apt update && apt install -y rustc cargo ffmpeg build-essential cmake clang nvtop
+apt update && apt install -y ffmpeg build-essential cmake clang nvtop
 ```
 
 ## Installation
