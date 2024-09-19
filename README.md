@@ -9,8 +9,6 @@ apt update && apt install -y ffmpeg build-essential cmake clang nvtop
 ## Installation
 
 ```
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
 uv venv --python 3.12
 
 source .venv/bin/activate
