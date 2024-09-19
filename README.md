@@ -16,18 +16,12 @@ uv venv --python 3.12
 source .venv/bin/activate
 
 uv pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
-uv pip install -U transformers yt-dlp setuptools maturin patchelf
+uv pip install -U transformers yt-dlp setuptools sphn patchelf
 uv pip install git+https://github.com/mobiusml/hqq.git
 
 git clone https://github.com/pytorch/ao
 cd ao
 python setup.py install
-
-git clone https://github.com/LaurentMazare/sphn sphn-code
-cd sphn-code
-maturin build --release
-
-uv pip install --force-reinstall /root/sphn-code/target/wheels/sphn-0.1.2-cp312-cp312-manylinux_2_34_x86_64.whl
 ```
 
 ```
