@@ -1,5 +1,7 @@
 FROM nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
