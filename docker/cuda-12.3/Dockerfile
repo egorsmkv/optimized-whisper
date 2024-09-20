@@ -52,3 +52,10 @@ RUN pip install git+https://github.com/mobiusml/hqq.git
 RUN git clone https://github.com/pytorch/ao && \
     cd ao && \
     python setup.py install
+
+# Install ffmpeg
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
