@@ -43,3 +43,7 @@ RUN pyenv install ${PYTHON_VERSION} && \
 
 # Install PyTorch
 RUN pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
+
+# Install other Python libraries
+RUN pip install -U transformers yt-dlp setuptools sphn patchelf
+RUN pip install git+https://github.com/mobiusml/hqq.git
