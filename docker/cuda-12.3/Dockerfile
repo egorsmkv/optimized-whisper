@@ -40,3 +40,6 @@ RUN pyenv install ${PYTHON_VERSION} && \
     pyenv rehash && \
     pip install --no-cache-dir -U pip setuptools wheel && \
     pip install packaging ninja
+
+# Install PyTorch
+RUN pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
