@@ -25,3 +25,12 @@ RUN apt-get update && \
     liblzma-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN curl https://pyenv.run | bash
+ENV PATH=${HOME}/.pyenv/shims:${HOME}/.pyenv/bin:${PATH}
+ARG PYTHON_VERSION=3.12.5
+RUN pyenv install ${PYTHON_VERSION} && \
+    pyenv global ${PYTHON_VERSION} && \
+    pyenv rehash && \
+    pip install --no-cache-dir -U pip setuptools wheel && \
+    pip install packaging ninja
