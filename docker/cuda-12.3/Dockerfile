@@ -30,10 +30,11 @@ RUN apt-get update && \
 
 ARG PYTHON_VERSION=3.12.5
 
-ENV HOME=/root \
-    PATH=${HOME}/.pyenv/shims:${HOME}/.pyenv/bin:${PATH}
-
 RUN curl https://pyenv.run | bash
+
+ENV HOME=/root
+ENV PATH=${HOME}/.pyenv/shims:${HOME}/.pyenv/bin:${PATH}
+
 RUN pyenv install ${PYTHON_VERSION} && \
     pyenv global ${PYTHON_VERSION} && \
     pyenv rehash && \
