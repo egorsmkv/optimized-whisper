@@ -47,3 +47,8 @@ RUN pip install --pre torch --index-url https://download.pytorch.org/whl/nightly
 # Install other Python libraries
 RUN pip install -U transformers yt-dlp setuptools sphn patchelf
 RUN pip install git+https://github.com/mobiusml/hqq.git
+
+# Install TorchAO
+RUN git clone https://github.com/pytorch/ao && \
+    cd ao && \
+    python setup.py install
