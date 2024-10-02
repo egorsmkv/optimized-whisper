@@ -46,10 +46,16 @@ uv pip install flash-attn --no-build-isolation
 python run_batch_fa2.py
 ```
 
-Some benchmarks:
+Benchmarks with Whisper Large V3:
 
 ```
-Quant:
+Quantized Turbo:
+
+  All Duration: 1174.8053
+  All RTF: 0.0031
+  All elapsed: 3.6684
+
+Quantized:
 
   All Duration: 1174.6987
   All RTF: 0.0096
