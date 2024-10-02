@@ -13,8 +13,11 @@ uv venv --python 3.12
 
 source .venv/bin/activate
 
-uv pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
-uv pip install -U transformers yt-dlp setuptools sphn patchelf
+uv pip install --upgrade pip
+
+uv pip install --upgrade --pre --index-url https://download.pytorch.org/whl/nightly/cu121 torch
+
+uv pip install --upgrade transformers yt-dlp sphn
 uv pip install git+https://github.com/mobiusml/hqq.git
 
 git clone https://github.com/pytorch/ao
