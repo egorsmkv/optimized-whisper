@@ -42,13 +42,13 @@ Quantized Whisper Turbo:
 
   All Duration: 1174.8053 seconds (19.58 minutes)
   All RTF: 0.0031
-  All elapsed: 3.6684
+  All elapsed: 3.6684 seconds
 
 Quantized Whisper Large V3:
 
   All Duration: 1174.6987 seconds (19.58 minutes)
   All RTF: 0.0096
-  All elapsed: 11.2452
+  All elapsed: 11.2452 seconds
 ```
 
 ## Development
