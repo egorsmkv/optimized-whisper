@@ -37,41 +37,23 @@ ffmpeg -y -i audio.wav -f segment -segment_time 30 -ac 1 -ar 16000 audio-chunk-%
 python run_batch.py
 ```
 
-## Run with Flash-Attention 2
+## Benchmarks with Whisper
 
 ```
-export FLASH_ATTENTION_SKIP_CUDA_BUILD=true
+Quantized Whisper Turbo:
 
-uv pip install flash-attn --no-build-isolation
-```
-
-```
-python run_batch_fa2.py
-```
-
-Benchmarks with Whisper Large V3:
-
-```
-Quantized Turbo:
-
-  All Duration: 1174.8053
+  All Duration: 1174.8053 seconds (19.58 minutes)
   All RTF: 0.0031
   All elapsed: 3.6684
 
-Quantized:
+Quantized Whisper Large V3:
 
-  All Duration: 1174.6987
+  All Duration: 1174.6987 seconds (19.58 minutes)
   All RTF: 0.0096
   All elapsed: 11.2452
-
-FA2:
-
-  All Duration: 1174.6987
-  All RTF: 0.0194
-  All elapsed: 22.8016
 ```
 
-### Development
+## Development
 
 ```
 uv pip install ruff
