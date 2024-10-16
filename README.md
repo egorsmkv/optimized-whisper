@@ -1,10 +1,8 @@
 # Optimized Whisper
 
-## Required software
+## Required packages
 
-```
-apt update && apt install -y ffmpeg build-essential cmake clang nvtop
-```
+See `docker/cuda-12.3/Dockerfile` file to understand what packages your system should have.
 
 ## Installation
 
